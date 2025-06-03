@@ -17,6 +17,9 @@ connectDB().then(()=>console.log('Database connected')).then(()=>{
     })
 })
 
+app.get("/",(req,resp)=>{
+    resp.status(200).json({"message":"Welcome to WorkSync api"});
+})
 app.use("/api/engineers",userRoutes);
 app.use("/api/projects",projectRouter);
 app.use("/api/assignments",assignmentRouter);
