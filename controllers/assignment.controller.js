@@ -75,7 +75,7 @@ const updateAssignmentById=async(req,resp)=>{
         const totalAllocatedExcludingCurrent=activeAssignments.reduce((sum,cur)=>sum+=cur.allocationPercentage,0);
         const available=user.maxCapacity-totalAllocatedExcludingCurrent
         if(available<allocationPercentage){
-            return resp.status(400).json({message:`Engineer only ${available}% capacity available`})
+            return resp.status(400).json({"message":`Engineer only ${available}% capacity available`})
         }
         const assignment=await Assignment.findByIdAndUpdate(assignmentId,req.body,{new:true});
         const updatedAvailable=user.maxCapacity-(totalAllocatedExcludingCurrent+allocationPercentage);
