@@ -15,7 +15,7 @@ const getAllprojects=async(req,resp)=>{
     try{
         const {input}=req.query;
         if(!input){
-        const projects=await Project.find().populate("managerId").select("name email role _id"); 
+        const projects=await Project.find().populate("managerId"); 
         resp.status(200).json(projects)
         }
         else{
