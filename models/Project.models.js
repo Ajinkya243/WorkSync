@@ -28,7 +28,7 @@ const projectSchema=new mongoose.Schema({
     status:{
         type:String,
         enum:['planning','active','completed'],
-        default:"palnning",
+        default:"planning",
         required:true
     },
     managerId:{
