@@ -38,7 +38,7 @@ const getAllAssignments=async(req,resp)=>{
 
 const getAssignmetById=async(req,resp)=>{
     try{
-        const assignment=await Assignment.findById(req.params.id);
+        const assignment=await Assignment.findById(req.params.id).populate("engineerId");
         if(!assignment){
            return  resp.status(404).json({"message":"Assignment not found"})
         }
