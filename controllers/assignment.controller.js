@@ -49,6 +49,19 @@ const getAssignmetById=async(req,resp)=>{
     }
 }
 
+const getAssignmetByProjectId=async(req,resp)=>{
+    try{
+        const assignment=await Assignment.find({projectId:req.params.id}).populate("engineerId").populate("projectId");
+        if(!assignment){
+           return  resp.status(404).json({"message":"Assignment not found"})
+        }
+        resp.send(assignment);
+    }
+    catch(error){
+         resp.status(500).json({"message":"Something went wrong"})
+    }
+}
+
 const updateAssignmentById=async(req,resp)=>{
     try{
         const assignmentId=req.params.id;
@@ -99,4 +112,4 @@ const deleteAssignmentById=async(req,resp)=>{
     }
 }
 
-module.exports={addAssignment,getAllAssignments,getAssignmetById,updateAssignmentById,deleteAssignmentById}
+module.exports={addAssignment,getAllAssignments,getAssignmetById,updateAssignmentById,deleteAssignmentById,getAssignmetByProjectId}
