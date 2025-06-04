@@ -28,7 +28,7 @@ const addAssignment=async(req,resp)=>{
 
 const getAllAssignments=async(req,resp)=>{
     try{
-        const assignments=await Assignment.find().populate("engineerId").populate("projectId");
+        const assignments=await Assignment.find().populate("engineerId").select("name email _id role").populate("projectId");
         resp.status(200).json(assignments);
     }
     catch(error){

@@ -15,11 +15,11 @@ const getAllprojects=async(req,resp)=>{
     try{
         const {input}=req.query;
         if(!input){
-        const projects=await Project.find().populate("managerId"); 
+        const projects=await Project.find().populate("managerId").select("name email role _id"); 
         resp.status(200).json(projects)
         }
         else{
-            const projects=await Project.find({name:{$regex:input,$options:'i'}}).populate("managerId")
+            const projects=await Project.find({name:{$regex:input,$options:'i'}}).populate("managerId").select("name email role _id");
              resp.status(200).json(projects)
         }
     }
@@ -30,7 +30,7 @@ const getAllprojects=async(req,resp)=>{
 
 const getProjectById=async(req,resp)=>{
     try{
-        const project=await Project.findById(req.params.id).populate("managerId");;
+        const project=await Project.findById(req.params.id).populate("managerId").select("_id name role email");;
         if(!project){
            return  resp.status(404).json({message:"Project not found"})
         }
