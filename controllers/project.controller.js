@@ -13,8 +13,15 @@ const addProject=async(req,resp)=>{
 
 const getAllprojects=async(req,resp)=>{
     try{
-    const projects=await Project.find().populate("managerId"); 
-    resp.status(200).json(projects)
+        const {input}=req.query;
+        if(!input){
+        const projects=await Project.find().populate("managerId"); 
+        resp.status(200).json(projects)
+        }
+        else{
+            const projects=await Project.find({name:{$regex:input,$options:'i'}}).populate("managerId")
+             resp.status(200).json(projects)
+        }
     }
     catch(error){
         resp.status(500).json({message:"Something went wrong"})
