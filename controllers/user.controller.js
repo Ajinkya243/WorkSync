@@ -23,12 +23,8 @@ const addUser=async(req,resp)=>{
 const getUsers=async(req,resp)=>{
     try{
         const loggedUser=req.user;
-        let users;
-        if(loggedUser.role=="manager"){
-            users=await User.find({role:'engineer'});
-        }else{
-            users=await User.find();
-        }
+        console.log(loggedUser);
+        let users=await User.find();
         resp.status(200).json(users);
     }
     catch(error){
