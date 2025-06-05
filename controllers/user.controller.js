@@ -23,8 +23,7 @@ const addUser=async(req,resp)=>{
 const getUsers=async(req,resp)=>{
     try{
         const loggedUser=req.user;
-        console.log(loggedUser);
-        let users=await User.find();
+        let users=await User.find({role:{$ne:loggedUser.role}});
         resp.status(200).json(users);
     }
     catch(error){
