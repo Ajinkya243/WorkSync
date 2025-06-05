@@ -68,4 +68,24 @@ const updateUser=async(req,resp)=>{
     }
 }
 
-module.exports={addUser,getUsers,getUserById,updateUser}
+const getEngineersBySkill = async (req, res) => {
+  try {
+    const { skill } = req.params;
+
+    const engineers = await User.find({
+      role: "engineer",
+      skills: { $regex: new RegExp(skill, "i") }
+    });
+
+    if (engineers.length === 0) {
+      return res.status(404).json({ message: "No engineers found with this skill" });
+    }
+
+    res.status(200).json(engineers);
+  } catch (error) {
+    console.error("Error fetching engineers by skill:", error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+module.exports={addUser,getUsers,getUserById,updateUser,getEngineersBySkill}
